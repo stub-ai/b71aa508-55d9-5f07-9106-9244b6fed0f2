@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { db } from '../firebase';
+import { collection, addDoc } from 'firebase/firestore';
 
 interface BirthdayData {
   name: string;
@@ -13,11 +15,13 @@ const BirthdayForm: React.FC<Props> = ({ addBirthday }) => {
   const [name, setName] = useState('');
   const [date, setDate] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    addBirthday({ name, date });
+    const data = { name, date };
+    addBirthday(data);
     setName('');
     setDate('');
+    await addDoc(collection(db, "birthdays"), data);
   };
 
   return (

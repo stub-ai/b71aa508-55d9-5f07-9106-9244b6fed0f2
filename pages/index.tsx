@@ -1,17 +1,13 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import BirthdayForm from '../components/BirthdayForm'
-import BirthdayList from '../components/BirthdayList'
-import { useState } from 'react'
+import React, { useState } from 'react';
+import BirthdayForm from '../components/BirthdayForm';
+import BirthdayList from '../components/BirthdayList';
 
 interface BirthdayData {
   name: string;
   date: string;
 }
 
-const inter = Inter({ subsets: ['latin'] })
-
-export default function Home() {
+const Home: React.FC = () => {
   const [birthdays, setBirthdays] = useState<BirthdayData[]>([]);
 
   const addBirthday = (data: BirthdayData) => {
@@ -19,11 +15,11 @@ export default function Home() {
   };
 
   return (
-    <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
-    >
+    <div>
       <BirthdayForm addBirthday={addBirthday} />
-      <BirthdayList birthdays={birthdays} />
-    </main>
-  )
-}
+      <BirthdayList />
+    </div>
+  );
+};
+
+export default Home;
